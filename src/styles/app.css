@@ -1,0 +1,140 @@
+@import "tailwindcss";
+
+@theme {
+  --color-*: initial;
+  --color-canvas: #0e0f0c;
+  --color-surface: #171914;
+  --color-ink: #ece8dd;
+  --color-ink-soft: #a3a394;
+  --color-line: #2c2f27;
+  --color-accent: #ff6a3d;
+  --color-accent-ink: #160b06;
+
+  --font-display: "Archivo", system-ui, sans-serif;
+  --font-mono: "Geist Mono", ui-monospace, monospace;
+
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+@layer base {
+  html {
+    background: var(--color-canvas);
+    color: var(--color-ink);
+    color-scheme: dark;
+    scrollbar-color: var(--color-line) var(--color-canvas);
+    -webkit-text-size-adjust: 100%;
+  }
+  body {
+    font-family: var(--font-display);
+    font-variation-settings: "wdth" 100;
+    line-height: 1.65;
+    letter-spacing: 0.005em;
+    overflow-x: clip;
+    -webkit-font-smoothing: antialiased;
+  }
+  ::selection {
+    background: var(--color-accent);
+    color: var(--color-accent-ink);
+  }
+  * {
+    caret-color: var(--color-accent);
+  }
+  h1, h2, h3 {
+    text-wrap: balance;
+  }
+  p {
+    text-wrap: pretty;
+  }
+  a {
+    text-underline-offset: 0.22em;
+    text-decoration-thickness: 1px;
+  }
+  :focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 4px;
+    border-radius: 2px;
+  }
+  /* A lit room, not a flat dark page: grain stops banding on real displays. */
+  body::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: 50;
+    pointer-events: none;
+    opacity: 0.05;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+}
+
+@utility display {
+  font-family: var(--font-display);
+  font-variation-settings: "wdth" 112;
+  font-weight: 800;
+  line-height: 0.94;
+  letter-spacing: -0.045em;
+}
+
+@utility label {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  line-height: 1.4;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--color-ink-soft);
+}
+
+@utility outline-type {
+  color: transparent;
+  -webkit-text-stroke: 1px var(--color-ink-soft);
+}
+
+/* DevTools margin/padding hatching, the visual vocabulary of the Render chapter. */
+@utility hatch {
+  background-image: repeating-linear-gradient(-45deg, currentColor 0 1px, transparent 1px 7px);
+}
+
+/* --p is the Render chapter's progress (0..1), written by JS; it defaults to the finished state. */
+@utility window-in {
+  opacity: clamp(0, (var(--p, 1) - var(--a)) / (var(--b) - var(--a)), 1);
+}
+@utility window-out {
+  opacity: clamp(0, 1 - (var(--p, 1) - var(--a)) / (var(--b) - var(--a)), 1);
+}
+
+@keyframes rise {
+  from { opacity: 0; transform: translateY(2.5rem); }
+  to { opacity: 1; transform: none; }
+}
+
+@utility reveal-on-scroll {
+  @supports (animation-timeline: view()) {
+    @media (prefers-reduced-motion: no-preference) {
+      animation: rise linear both;
+      animation-timeline: view();
+      animation-range: entry 0% cover 35%;
+    }
+  }
+}
+
+/* Section rule that stops short of the desktop folio column. */
+@utility rule-top {
+  border-top: 1px solid var(--color-line);
+  @media (width >= 64rem) {
+    border-image: linear-gradient(to right, transparent 12rem, var(--color-line) 12rem) 1;
+  }
+}
+
+@keyframes arrive {
+  from { opacity: 0; transform: translateX(40%); }
+  to { opacity: 1; transform: none; }
+}
+
+@utility arrive-on-scroll {
+  @supports (animation-timeline: view()) {
+    @media (prefers-reduced-motion: no-preference) {
+      animation: arrive linear both;
+      animation-timeline: view();
+      animation-range: entry 0% cover 40%;
+    }
+  }
+}
