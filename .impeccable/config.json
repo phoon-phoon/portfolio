@@ -11,6 +11,15 @@
         ],
         "createdAt": "2026-11-03T06:24:42.423Z",
         "reason": "agent: src arrives via {...props}; all three callers pass imported webp assets"
+      },
+      {
+        "rule": "low-contrast",
+        "value": "*",
+        "files": [
+          "scripts/og-card.html"
+        ],
+        "createdAt": "2026-11-12T06:35:40.760Z",
+        "reason": "Claude: source for a static OG raster; flagged text is the decorative hollow 'phoon' outline, real text uses site tokens #a3a394/#ff6a3d on #0e0f0c (>6:1)"
       }
     ]
   }

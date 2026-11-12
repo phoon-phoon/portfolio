@@ -3,6 +3,8 @@
 export const profile = {
   name: 'Sirichai Sae-aiew',
   handle: 'phoon-phoon',
+  // Production origin (GitHub Pages project site); canonical, og:url and og:image are built from it.
+  url: 'https://phoon-phoon.github.io/portfolio/',
   role: 'Senior Software Engineer (Full Stack)',
   summary:
     'Building for the web since 2015. React and TypeScript at the front, Python, FastAPI and PostgreSQL behind it.',

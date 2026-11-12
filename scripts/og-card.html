@@ -1,0 +1,52 @@
+<!doctype html>
+<!-- Source for public/og.png (1200x630). Regenerate with the command in docs/seo.md. -->
+<meta charset="utf-8" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,300..900&family=Geist+Mono:wght@400;500&display=block" />
+<style>
+  * { margin: 0; box-sizing: border-box; }
+  body {
+    width: 1200px; height: 630px; overflow: hidden; position: relative;
+    background: #0e0f0c; color: #ece8dd; font-family: Archivo, sans-serif;
+  }
+  .ghost {
+    position: absolute; right: 10px; bottom: -70px; font-size: 330px; line-height: 1;
+    font-weight: 800; font-variation-settings: "wdth" 112; letter-spacing: -0.045em;
+    color: transparent; -webkit-text-stroke: 1px #a3a394; opacity: 0.45;
+  }
+  .light {
+    position: absolute; right: -40px; top: 20px; width: 560px; height: 600px; border-radius: 50%;
+    background: radial-gradient(closest-side, rgb(236 232 221 / 0.16), transparent);
+  }
+  .chibi { position: absolute; right: 120px; bottom: 28px; height: 560px; }
+  .shadow {
+    position: absolute; right: 120px; bottom: 16px; width: 188px; height: 24px; border-radius: 50%;
+    background: radial-gradient(closest-side, rgb(0 0 0 / 0.7), transparent);
+  }
+  .copy { position: absolute; left: 80px; top: 92px; display: flex; flex-direction: column; gap: 40px; }
+  .label {
+    font: 500 20px/1.4 "Geist Mono", monospace; letter-spacing: 0.04em; text-transform: uppercase; color: #a3a394;
+  }
+  .name-wrap { position: relative; width: fit-content; }
+  h1 {
+    font-size: 132px; line-height: 0.94; font-weight: 800;
+    font-variation-settings: "wdth" 112; letter-spacing: -0.045em;
+  }
+  .box { position: absolute; inset: -18px -32px; border: 1.5px dashed rgb(255 106 61 / 0.6); }
+  .guide { position: absolute; left: -200px; right: -900px; top: 50%; height: 1.5px; background: rgb(255 106 61 / 0.35); }
+  .dim { position: absolute; right: -32px; bottom: -50px; color: #ff6a3d; text-transform: none; }
+  .url { position: absolute; left: 80px; bottom: 56px; color: #ff6a3d; }
+</style>
+<div class="ghost">phoon</div>
+<div class="light"></div>
+<div class="shadow"></div>
+<img class="chibi" src="../src/assets/portrait.webp" alt="" />
+<div class="copy">
+  <p class="label">Senior Software Engineer · Full Stack</p>
+  <div class="name-wrap">
+    <h1>Sirichai<br />Sae-aiew</h1>
+    <div class="box"></div>
+    <div class="guide"></div>
+    <span class="label dim">h1 · React · TypeScript · FastAPI</span>
+  </div>
+</div>
+<p class="label url">phoon-phoon.github.io/portfolio</p>
