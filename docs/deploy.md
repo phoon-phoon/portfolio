@@ -16,7 +16,8 @@ Live URL: https://phoon-phoon.github.io/portfolio/
 
 ## One-time setup
 
-In the GitHub repo: **Settings → Pages → Build and deployment → Source: GitHub Actions**. Without this the
+Done on 2026-11-12: the repo is public and Pages is set to build from GitHub Actions. To redo it elsewhere,
+in the GitHub repo: **Settings → Pages → Build and deployment → Source: GitHub Actions**. Without this the
 deploy job fails with a "Pages not enabled" error. A private repo needs a paid plan for Pages.
 
 ## Moving to another domain
