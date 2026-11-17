@@ -14,8 +14,8 @@ middle of the viewport (IntersectionObserver). On screens under 64rem only the c
 | Title | `title` | Parallax planes, far to near: hollow `phoon` (speed -22), chibi portrait with a light pool and contact shadow (speed -8), the name, layout guides with a live `h1 W × H` tag (0 at load, -160px by 900px scroll), grain |
 | I Practice | `practice` | Static text, the quiet before the peak |
 | II Render | `render` | Pinned stage, signature move (below) |
-| III Stack | `stack` | `reveal-on-scroll` (CSS `animation-timeline: view()`) |
-| IV Work | `work` | Pinned horizontal timeline, first job to today (`n × 70vh + 100vh`); repos rise with `reveal-on-scroll` after it |
+| III Stack | `stack` | `reveal-on-scroll` (CSS `animation-timeline: view()`); hovering an item shows the Render overlay on it (`Inspect.tsx`, below) |
+| IV Work | `work` | Pinned horizontal timeline, first job to today (`n × 70vh + 100vh`); education follows it |
 | V Colophon | `contact` | Held close, CTA as a running-text link; a coffee chibi (speed -6) walks in from the right (`arrive-on-scroll`, CSS `view()` timeline), right of the copy on desktop, above it on phones |
 
 ## Signature move: Render
@@ -38,6 +38,17 @@ Three chibis carry the arc: greeting at the title, jogging along the Work timeli
 invitation to talk). The greeting and the coffee face left, toward the copy; the runners are mirrored to face
 right, their direction of travel. Their light pools overflow the figure, so Work and the
 Colophon clip horizontally (`overflow-x-clip`) like the hero.
+
+### Stack: the inspector
+
+`src/components/Inspect.tsx` wraps each stack item. On hover it shows what DevTools shows when you inspect an
+element, using Render's `hatch` vocabulary: a margin hatch (accent), a padding hatch (ink), the dashed content
+box, and a tag `li W × H` above it, measured with `getBoundingClientRect` on pointer enter.
+
+- **Pointer only.** Tailwind's `hover:` applies only under `(hover: hover)`, so touch screens never see a stuck
+  overlay. Items are not made focusable: the overlay is decoration, and 26 extra tab stops would cost keyboard
+  users more than it gives them.
+- **Reduced motion.** The overlay still shows on hover, without the 150ms fade.
 
 ### Work: the horizontal timeline (feeling: Momentum)
 

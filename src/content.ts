@@ -1,4 +1,4 @@
-// Every line on the page comes from this file. Sources: github.com/phoon-phoon (profile README, repos) and LinkedIn text Sirichai pasted.
+// Every line on the page comes from this file. Sources: github.com/phoon-phoon (profile README) and LinkedIn text Sirichai pasted.
 
 export const profile = {
   name: 'Sirichai Sae-aiew',
@@ -120,29 +120,6 @@ export const education = [
     degree: "Bachelor's degree, Information Technology",
     period: '2011 – 2014',
     note: 'Second-Class Honors',
-  },
-];
-
-export const repos = [
-  {
-    name: 'simple-pokemon-api',
-    lang: 'TypeScript',
-    fact: 'React, Tailwind and shadcn/ui. A Pokémon browser with load-more paging, lazy images and a detail modal.',
-  },
-  {
-    name: 'kmitl-model-comp-regex',
-    lang: 'JavaScript',
-    fact: 'A regex teaching set for KMITL Model Competition: raw email parsed into sender, date, subject and body.',
-  },
-  {
-    name: 'tic-tac-toe',
-    lang: 'TypeScript',
-    fact: 'The game, shipped with a Dockerfile, Compose and a Makefile.',
-  },
-  {
-    name: 'tri-petch-spa-v2',
-    lang: 'TypeScript',
-    fact: 'A single-page app, second iteration.',
   },
 ];
 

@@ -5,9 +5,10 @@ import coffee from '~/assets/coffee.webp';
 import { Chibi } from '~/components/Chibi';
 import { Folio } from '~/components/Folio';
 import { Hero } from '~/components/Hero';
+import { Inspect } from '~/components/Inspect';
 import { Render } from '~/components/Render';
 import { Timeline } from '~/components/Timeline';
-import { education, profile, repos, stack } from '~/content';
+import { education, profile, stack } from '~/content';
 
 export const Route = createFileRoute('/')({ component: Home });
 
@@ -58,7 +59,7 @@ function Home() {
 
         <Render />
 
-        {/* III. A typographic index, not a badge wall. */}
+        {/* III. A typographic index, not a badge wall; hover inspects an item like DevTools. */}
         <section id="stack" aria-labelledby="stack-h" className={`${gutter} rule-top py-32 sm:py-44`}>
           <ChapterHead id="stack-h" numeral="III" title="Stack" />
           <div className="grid gap-14 md:grid-cols-[1.35fr_1fr_1fr] md:gap-10">
@@ -71,7 +72,7 @@ function Home() {
                       key={item}
                       className="text-[clamp(1.35rem,2.2vw,1.85rem)] leading-[1.35] font-semibold tracking-[-0.02em] [font-variation-settings:'wdth'_108]"
                     >
-                      {item}
+                      <Inspect>{item}</Inspect>
                     </li>
                   ))}
                 </ul>
@@ -86,7 +87,7 @@ function Home() {
 
           <div className={`${gutter} pt-16 pb-32 sm:pb-44`}>
             <h3 className="label mb-6">Education</h3>
-            <ul className="mb-24">
+            <ul>
               {education.map((ed) => (
                 <li key={ed.school} className="grid gap-2 border-t border-line py-6 sm:grid-cols-[minmax(0,1fr)_auto] sm:gap-8">
                   <div>
@@ -100,25 +101,6 @@ function Home() {
               ))}
             </ul>
 
-            <h3 className="label mb-6">Selected code on GitHub</h3>
-            <ul className="grid gap-x-10 md:grid-cols-2">
-              {repos.map((r) => (
-                <li key={r.name} className="reveal-on-scroll border-t border-line py-6">
-                  <a
-                    href={`${profile.links.github}/${r.name}`}
-                    className="group block no-underline"
-                  >
-                    <span className="flex items-baseline justify-between gap-4">
-                      <span className="font-mono text-base text-ink underline decoration-line decoration-1 underline-offset-4 transition-colors duration-150 group-hover:decoration-accent">
-                        {r.name}
-                      </span>
-                      <span className="label shrink-0">{r.lang}</span>
-                    </span>
-                    <span className="mt-3 block max-w-[52ch] text-ink-soft">{r.fact}</span>
-                  </a>
-                </li>
-              ))}
-            </ul>
           </div>
         </section>
       </main>

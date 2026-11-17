@@ -21,7 +21,7 @@ No environment variables. Deploys to GitHub Pages on every push to `main`; see [
 
 ```
 src/
-  content.ts            every piece of copy on the page (profile, stack, experience, repos, chapters)
+  content.ts            every piece of copy on the page (profile, stack, experience, chapters)
   router.tsx            getRouter()
   routes/__root.tsx     the HTML document, SEO/share meta and JSON-LD (see seo.md), fonts, favicon
   routes/index.tsx      the page: ParallaxProvider, chapters I, III, IV, V
@@ -30,6 +30,7 @@ src/
   components/Timeline.tsx chapter IV: pinned horizontal timeline, runner and crossfading roles
   components/Folio.tsx  chapter nav in the left margin (current chapter pill on mobile)
   components/useBox.ts  ResizeObserver hook returning an element's rendered size
+components/Inspect.tsx DevTools-style hover overlay on each Stack item (margin, padding, content box, size)
   components/Chibi.tsx  a chibi image with its light pool and contact shadow (parent sets height)
   assets/portrait.webp  3D chibi, wai greeting (transparent), picked up automatically by Hero.tsx
   assets/run-*.webp     run cycles, one per company shirt, for the Work timeline (strips of 320x640 frames:
@@ -45,12 +46,11 @@ scrollcraft/            scroll-craft brief and fingerprint registry (design reco
 
 ## Editing content
 
-All copy is in `src/content.ts`. Sources: the GitHub profile README and public repos of `phoon-phoon`, and
+All copy is in `src/content.ts`. Sources: the GitHub profile README of `phoon-phoon`, and
 the LinkedIn experience and education text pasted on 2026-11-03.
 
 - `experience`: one entry per company, `{ company, meta, roles: [{ title, period, points[] }] }`, newest first.
 - `education`: `{ school, degree, period, note }`.
-- `repos`: GitHub repos shown under "Selected code".
 
 ## Portrait
 
