@@ -8,10 +8,15 @@ engine is not used: the page is React, and motion comes from `react-scroll-paral
 
 No fixed top bar. A folio in the left margin (`Folio.tsx`) lists the chapters and highlights the one under the
 middle of the viewport (IntersectionObserver). On screens under 64rem only the current chapter shows, bottom-left.
+A 1px accent line fills with page progress: down the left edge of the chapter list on desktop, along the bottom
+of the chapter pill on phones. It is the `scroll-progress` utility in `app.css` (CSS `animation-timeline:
+scroll(root)`, no JS); `--from` picks the axis (`1 0` vertical, the default, or `0 1` horizontal). Browsers
+without scroll timelines (Firefox today) hide the line instead of showing a static one. It stays on under
+reduced motion: it is a meter, not movement.
 
 | Chapter | Section id | Device |
 | --- | --- | --- |
-| Title | `title` | Parallax planes, far to near: hollow `phoon` (speed -22), chibi portrait with a light pool and contact shadow (speed -8), the name, layout guides with a live `h1 W × H` tag (0 at load, -160px by 900px scroll), grain |
+| Title | `title` | Parallax planes, far to near: hollow `phoon` (speed -22), chibi with a light pool and contact shadow (speed -8) that reacts to the mouse (below), the name, layout guides with a live `h1 W × H` tag (0 at load, -160px by 900px scroll), grain |
 | I Practice | `practice` | Static text, the quiet before the peak |
 | II Render | `render` | Pinned stage, signature move (below) |
 | III Stack | `stack` | `reveal-on-scroll` (CSS `animation-timeline: view()`); hovering an item shows the Render overlay on it (`Inspect.tsx`, below) |
@@ -38,6 +43,28 @@ Three chibis carry the arc: greeting at the title, jogging along the Work timeli
 invitation to talk). The greeting and the coffee face left, toward the copy; the runners are mirrored to face
 right, their direction of travel. Their light pools overflow the figure, so Work and the
 Colophon clip horizontally (`overflow-x-clip`) like the hero.
+
+### Title: the chibi reacts to the mouse
+
+`Hero.tsx` stacks five poses of the hero chibi (`src/assets/hero/`) and shows one at a time:
+
+| Pointer over | Pose |
+| --- | --- |
+| The "Get in touch" link | `point`: points toward it |
+| The name (`h1`) | `raise`: finger raised, looking at it |
+| Anywhere else left of his head | `look-left` |
+| Right of his head | `look-right` |
+| Near his head, or outside the hero | `front` |
+
+- **Zones.** The left/right zones start a quarter of the canvas width away from his head (`HEAD_X`).
+- **Crossfade.** The incoming pose fades in on top (`z-10`, 150ms). The outgoing pose waits 150ms and then
+  drops to 0 at once. This way two half-transparent figures never overlap and the dark suit doesn't ghost.
+- **Loading.** The extra poses load only where `(hover: hover) and (pointer: fine)` matches, so phones and
+  tablets load `front` alone.
+- **Mouse only.** Pen and touch do nothing (`pointerType === 'mouse'`).
+- **Reduced motion.** Poses swap without the fade.
+- **Light.** The light pool and contact shadow sit in a box over his body (left 30%, width 64% of the canvas),
+  not the whole canvas, which has room for the pointing arm.
 
 ### Stack: the inspector
 

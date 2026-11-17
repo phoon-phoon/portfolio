@@ -21,7 +21,10 @@ export function Folio() {
 
   return (
     <nav aria-label="Chapters" className="fixed z-40 bottom-4 left-4 lg:bottom-auto lg:top-10 lg:left-8">
-      <ol className="hidden lg:flex flex-col gap-2">
+      <ol className="relative hidden lg:flex flex-col gap-2 pl-4">
+        <li aria-hidden className="absolute left-0 top-1 bottom-1 w-px bg-line">
+          <span className="scroll-progress absolute inset-0 origin-top bg-accent" />
+        </li>
         {chapters.slice(1).map((c) => (
           <li key={c.id}>
             <a
@@ -39,11 +42,12 @@ export function Folio() {
       </ol>
       <p
         aria-hidden
-        className={`label lg:hidden rounded-sm bg-canvas/85 px-2 py-1 transition-opacity duration-200 ${
+        className={`label relative lg:hidden rounded-sm bg-canvas/85 px-2 py-1 transition-opacity duration-200 ${
           active.numeral ? 'opacity-100' : 'opacity-0'
         }`}
       >
         <span className="text-accent">{active.numeral}</span> · {active.title}
+        <span className="scroll-progress absolute inset-x-2 bottom-0 h-px origin-left bg-accent [--from:0_1]" />
       </p>
     </nav>
   );

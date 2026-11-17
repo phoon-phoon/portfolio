@@ -138,3 +138,19 @@
     }
   }
 }
+
+/* Page progress fill for the folio. Scales from --from (default "1 0", vertical) to full. Hidden where
+   scroll timelines are unsupported, since a static bar would lie. Kept under reduced motion: it is a meter, not motion. */
+@keyframes fill {
+  from { scale: var(--from, 1 0); }
+  to { scale: 1 1; }
+}
+
+@utility scroll-progress {
+  display: none;
+  @supports (animation-timeline: scroll()) {
+    display: block;
+    animation: fill linear both;
+    animation-timeline: scroll(root);
+  }
+}

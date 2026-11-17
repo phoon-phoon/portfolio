@@ -5,6 +5,7 @@ import { education, experience, profile } from '~/content';
 const title = `${profile.name} · ${profile.role}`;
 const ogImage = `${profile.url}og.png`;
 const [first, last] = profile.name.split(' ');
+const base = import.meta.env.BASE_URL;
 
 export const Route = createRootRoute({
   head: () => ({
@@ -48,7 +49,11 @@ export const Route = createRootRoute({
     ],
     links: [
       { rel: 'canonical', href: profile.url },
-      { rel: 'icon', href: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%230E0F0C'/%3E%3Crect x='6' y='6' width='20' height='20' fill='none' stroke='%23FF6A3D' stroke-dasharray='3 2'/%3E%3C/svg%3E" },
+      // Under the /portfolio/ base: browsers would otherwise look for /favicon.ico on the user site root.
+      { rel: 'icon', href: `${base}favicon.ico`, sizes: '16x16 32x32 48x48' },
+      { rel: 'icon', type: 'image/png', sizes: '192x192', href: `${base}icon-192.png` },
+      { rel: 'apple-touch-icon', href: `${base}apple-touch-icon.png` },
+      { rel: 'manifest', href: `${base}manifest.webmanifest` },
       { rel: 'preconnect', href: 'https://fonts.googleapis.com' },
       { rel: 'preconnect', href: 'https://fonts.gstatic.com', crossOrigin: 'anonymous' },
       {
