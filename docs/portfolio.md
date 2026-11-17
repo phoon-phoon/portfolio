@@ -102,3 +102,10 @@ A new company needs one entry in `cycles` (its strip and frame count). Frames mu
 
 Contact links (`profile.links`) point to LinkedIn and GitHub. The label "Get in touch" is used for the
 one call to action everywhere on the page.
+
+## Console greeting
+
+Opening DevTools on the page shows a styled `console.log`: `phoon` in large accent type, then links to the
+source (`profile.links.github` + `/portfolio`) and LinkedIn. It lives in a `useEffect` in `Home`
+(`src/routes/index.tsx`). In `npm run dev` it prints twice because TanStack Start's default client entry wraps
+the app in `StrictMode`; the production build prints it once.

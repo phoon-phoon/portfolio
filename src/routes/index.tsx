@@ -37,6 +37,15 @@ function ChapterHead({ numeral, title, id }: { numeral: string; title: string; i
 function Home() {
   const reduced = useReducedMotion();
 
+  // Easter egg for whoever opens DevTools, the same people the Render and Stack chapters are talking to.
+  useEffect(() => {
+    console.log(
+      `%cphoon%c\nYou opened DevTools, so you are my kind of person.\nRead the source: ${profile.links.github}/portfolio\nSay hi: ${profile.links.linkedin}`,
+      'font: 800 48px/1 Archivo, system-ui, sans-serif; letter-spacing: -0.04em; color: #ff6a3d',
+      'font: 13px/1.6 "Geist Mono", ui-monospace, monospace; color: inherit',
+    );
+  }, []);
+
   return (
     <ParallaxProvider isDisabled={reduced}>
       <a href="#practice" className="label sr-only focus:not-sr-only focus:fixed focus:top-4 focus:right-4 focus:z-50 focus:bg-canvas focus:p-2">
