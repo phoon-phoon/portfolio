@@ -32,8 +32,7 @@ src/
   components/useBox.ts  ResizeObserver hook returning an element's rendered size
   components/Inspect.tsx DevTools-style hover overlay on each Stack item (margin, padding, content box, size)
   components/Chibi.tsx  a chibi image with its light pool and contact shadow (parent sets height)
-  assets/portrait.webp  3D chibi, wai greeting (transparent); used by the share card only (scripts/og-card.html)
-  assets/hero/*.webp    hero chibi poses: front, look-left, look-right, raise, point (one aligned 858x1600 canvas)
+  assets/portrait.webp  3D chibi, wai greeting (transparent), picked up automatically by Hero.tsx and the share card
   assets/run-*.webp     run cycles, one per company shirt, for the Work timeline (strips of 320x640 frames:
                         Lianudom 8, The Percentage Company 7, Swift Dynamics 8)
   assets/coffee.webp    3D chibi with a coffee, chapter V Colophon
@@ -43,7 +42,6 @@ public/og.png           1200x630 share card, rendered from scripts/og-card.html
 scripts/og-card.html    source of the share card (see seo.md)
 public/favicon.ico, icon-*.png, apple-touch-icon.png, manifest.webmanifest  icons (see favicon.md)
 scripts/favicon-source.jpg  900x900 coffee chibi the icons are made from
-scripts/hero-poses-source.jpg  Gemini sheet of six poses the hero frames are cut from
 .github/workflows/deploy.yml  build and deploy to GitHub Pages (see deploy.md)
 scrollcraft/            scroll-craft brief and fingerprint registry (design records, not shipped)
 ```
@@ -56,11 +54,11 @@ the LinkedIn experience and education text pasted on 2026-11-03.
 - `experience`: one entry per company, `{ company, meta, roles: [{ title, period, points[] }] }`, newest first.
 - `education`: `{ school, degree, period, note }`.
 
-## Portrait and hero poses
+## Portrait
 
 `src/assets/portrait.webp` is a Gemini-generated 3D chibi (wai greeting) with the white background removed.
-The hero no longer shows it; the share card (`scripts/og-card.html`) still does. To redo the cut from a
-white-background JPEG:
+`src/components/Hero.tsx` loads it (or `portrait.png`) through `import.meta.glob`; with no file the hero is
+type-only. The share card (`scripts/og-card.html`) uses it too. To redo the cut from a white-background JPEG:
 
 ```bash
 magick in.jpg -alpha set -fuzz 10% -fill none \
@@ -70,34 +68,11 @@ magick cut.png \( +clone -alpha extract -morphology Erode Disk:1.5 -blur 0x1 \) 
   -compose CopyOpacity -composite -trim +repage -resize x1600 -quality 88 src/assets/portrait.webp
 ```
 
-The hero poses in `src/assets/hero/` come from `scripts/hero-poses-source.jpg`, a Gemini sheet of six figures
-(2 rows of 3). Every turned figure in it faces screen-right, so the ones used here are mirrored to face the copy:
+Then update `width`/`height` on the `<Chibi>` to the new file's size.
 
-| File | Sheet figure | Edit |
-| --- | --- | --- |
-| `front.webp` | top-left, wai, smiling | none |
-| `look-left.webp` | top-middle, wai, head turned | mirrored |
-| `look-right.webp` | top-middle | as is |
-| `raise.webp` | top-right, finger raised | mirrored |
-| `point.webp` | bottom-right, pointing | mirrored |
-
-The bottom-left (closed-mouth wai) and bottom-middle (open hand) figures are not used.
-
-Steps:
-
-1. Corner flood fill on the whole sheet (`-fuzz 10%`), then `-connected-components 8` (area threshold 20000)
-   on the alpha to find the six boxes.
-2. Per figure: crop its box plus 10px, and clear the enclosed white gaps (between the legs, inside a bent arm):
-   pure-white pixels (`-fuzz 4%`) that survive `-morphology Open Disk:6` become transparent. The opening keeps
-   the white shirt. Then erode the alpha by `Disk:1.5`, blur by 1, and trim.
-3. Scale each figure to the front figure's height (875px in the sheet), so they are the same size.
-4. Head centre: the centre of the alpha bounding box of the top 30% of each (mirrored) figure.
-5. Place all of them on one 469x875 canvas with the feet on the bottom edge and every head centre at the same
-   x (62% of the width). The canvas is wider than the figure to fit the pointing arm. Resize to x1600,
-   `-quality 88`.
-
-`Hero.tsx` keeps `HEAD_X = 0.62` in step with step 5. If a new sheet changes the canvas, update it and the
-images' `width`/`height`.
+A mouse-reactive hero (five poses cut from one Gemini sheet, swapped by pointer zone) shipped in `48f3c33` and
+was taken out while new frames are made. That commit's `docs/portfolio.md` and `docs/scroll-design.md` have
+the cutting and alignment steps and the swap logic.
 
 `coffee.webp` was cut the same way from white-background JPEGs, with extra steps:
 
